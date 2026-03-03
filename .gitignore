@@ -1,0 +1,34 @@
+### JetBrains (IntelliJ IDEA) ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+gen/
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+### Log files ###
+*.log
+logs/
+
+### OS Files ###
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+### Sensitive Information ###
+# Never push your real secrets!
+.env
+application-local.properties
