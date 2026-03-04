@@ -25,6 +25,9 @@ public class User implements UserDetails {
     private String email;
     @Column(nullable=false)
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
+    private Role role;
 
     @Column(name = "verification_code")
     private String verificationCode;
@@ -95,9 +98,17 @@ public class User implements UserDetails {
         return password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new org.springframework.security.core.authority.SimpleGrantedAuthority(role.name()));
     }
 
     //TODO: add proper boolean checks

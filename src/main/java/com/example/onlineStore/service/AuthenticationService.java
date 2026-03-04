@@ -4,6 +4,7 @@ package com.example.onlineStore.service;
 import com.example.onlineStore.dto.LoginUserDto;
 import com.example.onlineStore.dto.RegisterUserDto;
 import com.example.onlineStore.dto.VerifyUserDto;
+import com.example.onlineStore.model.Role;
 import com.example.onlineStore.model.User;
 import com.example.onlineStore.repo.UserRepository;
 import jakarta.mail.MessagingException;
@@ -37,6 +38,7 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         User user = new User(input.getUsername(), input.getEmail(), passwordEncoder.encode(input.getPassword()));
+        user.setRole(Role.ROLE_USER);
         user.setVerificationCode(generateVerificationCode());
         user.setVerificationCodeExpiresAt(LocalDateTime.now().plusMinutes(15));
         user.setEnabled(false);
