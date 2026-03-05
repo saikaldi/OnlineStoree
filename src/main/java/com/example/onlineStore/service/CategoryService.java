@@ -40,7 +40,7 @@ public class CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    public Category findById(Long id) {
+    public Category findCategoryById(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("Category not found with id:" + id));
 
