@@ -36,17 +36,18 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/products/**", "/categories/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/products/**", "/api/categories/**").permitAll()
 
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Only for ROLE_ADMIN
-                        .requestMatchers("/categories/**").hasRole("ADMIN")
-                        .requestMatchers("/users/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Only for ROLE_ADMIN
+                        .requestMatchers("/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/products/**").hasAnyRole("SELLER", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/products/**").hasAnyRole("SELLER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole("SELLER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole("SELLER", "ADMIN")
 
-                        .requestMatchers("/seller/**").hasAnyRole("ADMIN", "SELLER")
+                        .requestMatchers("/api/seller/**").hasAnyRole("ADMIN", "SELLER")
+                        .requestMatchers("/api/carts/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
