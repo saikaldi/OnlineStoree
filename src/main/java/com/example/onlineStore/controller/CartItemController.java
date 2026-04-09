@@ -1,9 +1,11 @@
 package com.example.onlineStore.controller;
 
 import com.example.onlineStore.model.CartItem;
+import com.example.onlineStore.model.User;
 import com.example.onlineStore.service.CartItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +24,10 @@ public class CartItemController {
         return ResponseEntity.ok(cartItemService.addItemToCart(userId, productId, quantity));
     }
     @PreAuthorize("hasAnyRole('ADMIN', 'SELLER', 'USER')")
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<CartItem>> getCartItems(@PathVariable Long userId) {
-        return ResponseEntity.ok(cartItemService.getCartItems(userId));
+    @GetMapping("/mycart")
+    public ResponseEntity<List<CartItem>> getMyCart(Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(cartItemService.getCartItems(currentUser.getId()));
     }
     @PreAuthorize("hasAnyRole('ADMIN', 'SELLER', 'USER')")
     @PutMapping("/{id}")
